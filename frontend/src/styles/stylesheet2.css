@@ -1,0 +1,473 @@
+/*src: https://liu.edu.lb/cms26/assets/css/responsive.css?v=1785311460*/
+/*fonts: imported at html in head:
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+
+*/
+
+/* ============================================================
+   LIU Website - Responsive Styles
+   ============================================================ */
+
+/* ---- Tablet: â‰¤ 1024px ---- */
+@media (max-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 0; padding: 3rem 0 2.5rem; align-items: stretch; }
+  .footer-brand { grid-column: 1 / -1; border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); padding-right: 0; padding-bottom: 2rem; margin-bottom: .5rem; }
+  .footer-column { padding: 1.75rem 1.5rem; }
+  .news-grid { grid-template-columns: repeat(2, 1fr); }
+  .page-layout { grid-template-columns: 1fr 240px; }
+  .card-featured { grid-template-columns: 1fr; }
+  .card-featured .card-img { min-height: 200px; }
+  .why-liu-inner { grid-template-columns: 1fr; gap: 2.75rem; }
+  .video-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  .video-embed {
+    min-height: 0;
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+  .schools-grid, .campuses-grid { grid-template-columns: repeat(2, 1fr); }
+  .quicklink-item { flex: 1 1 180px; }
+  .campus-mq-card { width: 240px; }
+  .campus-mq-img  { height: 160px; }
+  .campus-track-fade-left,
+  .campus-track-fade-right { width: 80px; }
+  .news-events-grid { grid-template-columns: 1fr; gap: 2rem; }
+
+  /* Header-main: hide search on tablet to save space */
+  .header-search { max-width: 280px; }
+  .header-logo-text strong { font-size: .88rem; }
+
+  /* Admin */
+  .stat-cards { grid-template-columns: repeat(2, 1fr); }
+  .adm-form-row-3 { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---- Mobile: â‰¤ 768px ---- */
+@media (max-width: 768px) {
+  :root { --container-max: 100%; }
+
+  .section { padding: 3rem 0; }
+  .section-lg { padding: 4rem 0; }
+
+  /* Hide utility bar and sticky nav bar â€” header-main becomes the single top bar */
+  .top-utility-bar { display: none; }
+  /* Collapse nav bar to 0 height (NOT display:none â€” that would hide the fixed nav-links drawer too) */
+  .main-navbar {
+    height: 0; min-height: 0; overflow: visible;
+    border: none; position: static;
+  }
+  .main-navbar .container { padding: 0; min-height: 0; overflow: visible; }
+  .main-navbar .nav-home-btn { display: none; }
+
+  /* Header-main: fixed mobile bar */
+  .header-main {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 0; border-bottom: 2px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+  }
+  .header-main .container { height: 62px; gap: .4rem; padding: 0 1rem; }
+
+  /* Hide search only â€” Login / Apply Now stay visible (compact) on mobile */
+  .header-search { display: none; }
+
+  /* Show hamburger, right after the CTA buttons */
+  .navbar-toggle { display: flex; padding: .4rem; }
+
+  /* Logo shrinks (and truncates) first, so it never pushes the CTA
+     buttons or hamburger off screen on narrow phones. */
+  .header-logo { flex-shrink: 1; min-width: 0; gap: .5rem; }
+  .header-logo img { height: 40px; flex-shrink: 0; }
+  .header-logo-text { min-width: 0; }
+  .header-logo-text strong {
+    font-size: .78rem; color: #002a5c;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .header-logo-text span { display: none; }
+
+  /* Compact Login / Apply Now â€” kept visible on mobile instead of being
+     hidden behind the hamburger drawer. Login collapses to an icon-only
+     circle button; Apply Now is hidden here (still reachable from the
+     hamburger drawer) to keep the bar uncluttered. */
+  .header-actions { display: flex; gap: .35rem; margin-left: auto; flex-shrink: 0; }
+  .header-login-btn { padding: .5rem; border-radius: 50%; font-size: 0; gap: 0; }
+  .header-apply-btn { display: none; }
+
+  /* Body offset for fixed header-main */
+  body { padding-top: 62px; }
+
+  /* Mobile nav drawer */
+  .nav-links {
+    position: fixed;
+    top: 62px; left: 0; right: 0;
+    /* 100vh is unreliable on mobile browsers (doesn't shrink for the
+       address bar), which can leave the drawer's own height wrong and
+       items near the bottom (Login/Apply Now) unreachable when
+       scrolling. dvh tracks the real visible viewport; vh is just the
+       fallback for older browsers that don't support dvh. */
+    height: calc(100vh - 62px);
+    height: calc(100dvh - 62px);
+    background: var(--color-white);
+    flex-direction: column; align-items: stretch;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    /* Keep the last item clear of a phone's home-indicator / gesture bar. */
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-100%);
+    transition: transform .3s ease;
+    box-shadow: var(--shadow-md);
+    z-index: 999; gap: 0; display: flex;
+  }
+  .nav-links.open { transform: translateX(0); }
+
+  /* Drawer items */
+  .nav-item { height: auto; border-bottom: 1px solid var(--color-border); display: block; }
+  .nav-link { padding: .95rem 1.5rem; height: auto; font-size: .95rem; display: flex; justify-content: space-between; }
+  .nav-link::after { display: none; }
+
+  /* Accordion dropdown */
+  .nav-dropdown {
+    position: static; transform: none; box-shadow: none; border-top: none;
+    border-radius: 0; background: var(--color-light);
+    border-left: 3px solid var(--color-primary);
+    max-height: 0; overflow: hidden; opacity: 0; visibility: hidden;
+    transition: max-height .3s ease, opacity .25s ease;
+  }
+  .nav-item.open > .nav-dropdown { max-height: 800px; opacity: 1; visibility: visible; }
+  .nav-dropdown a { padding: .75rem 1.5rem .75rem 2rem; font-size: .88rem; border-bottom: 1px solid rgba(0,0,0,.05); display: block; }
+  .nav-dropdown a:last-child { border-bottom: none; }
+  .nav-arrow { font-size: .55rem; transition: transform .25s ease; }
+  .nav-item.open > .nav-link > .nav-arrow { transform: rotate(180deg); }
+
+  /* Compact quick-access panel for links from the desktop utility bar */
+  .nav-mobile-utility-section {
+    display: block;
+    height: auto;
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-border);
+    background: linear-gradient(145deg, #f7f9fc 0%, #edf2f8 100%);
+  }
+  .nav-mobile-utility-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: .75rem;
+    padding: 0 .1rem;
+  }
+  .nav-mobile-utility-header > span {
+    color: var(--color-primary-dk);
+    font-size: .82rem;
+    font-weight: 800;
+    letter-spacing: .02em;
+  }
+  .nav-mobile-utility-header small {
+    color: var(--color-muted);
+    font-size: .68rem;
+    font-weight: 500;
+  }
+  .nav-mobile-utility-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .55rem;
+  }
+  .nav-mobile-utility-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+    min-height: 58px;
+    padding: .7rem .75rem;
+    border: 1px solid rgba(0,42,92,.1);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--color-primary-dk);
+    box-shadow: 0 2px 8px rgba(0,42,92,.05);
+    font-size: .78rem;
+    font-weight: 700;
+    line-height: 1.25;
+    text-decoration: none;
+    transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+  }
+  .nav-mobile-utility-link:hover,
+  .nav-mobile-utility-link:focus-visible {
+    border-color: rgba(0,42,92,.28);
+    color: var(--color-primary-dk);
+    box-shadow: 0 6px 16px rgba(0,42,92,.1);
+    transform: translateY(-1px);
+  }
+  .nav-mobile-utility-link:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .nav-mobile-utility-label { min-width: 0; }
+  .nav-mobile-utility-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    background: rgba(255,176,52,.2);
+    color: var(--color-primary);
+    font-size: .75rem;
+    flex: 0 0 23px;
+  }
+
+  /* Mobile CTA buttons */
+  .nav-mobile-cta-item { display: block; border-bottom: none; padding: .65rem 1.25rem; background: var(--color-light); }
+  .nav-mobile-cta-item:first-of-type { border-top: 2px solid var(--color-border); }
+  .nav-mobile-cta-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 100%; padding: .78rem 1rem; border-radius: 50px;
+    font-size: .95rem; font-weight: 700; text-decoration: none; transition: all .2s;
+  }
+  .nav-mobile-login {
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary-dk);
+    background: linear-gradient(135deg, rgba(255,176,52,.18) 0%, #fff 100%);
+    box-shadow: 0 10px 24px rgba(0,42,92,.1);
+  }
+  .nav-mobile-login:hover {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-lt) 100%);
+    border-color: var(--color-primary);
+    color: #fff;
+  }
+  .nav-mobile-apply { background: var(--color-accent); color: var(--color-primary-dk); border: 2px solid var(--color-accent); box-shadow: 0 2px 8px rgba(255,176,52,.3); }
+  .nav-mobile-apply:hover { background: var(--color-accent-dk); }
+
+  /* Hero */
+  .hero-slide { min-height: 300px; }
+  .hero-slide.has-mobile-image {
+    min-height: 0;
+    display: block;
+    transition: opacity .8s ease;
+  }
+  .hero-slide.has-mobile-image .hero-slide-bg { display: none; }
+  /* Full image, no cropping, no border/padding â€” the slide's height is
+     just whatever this image's own aspect ratio produces at full width.
+     That's genuinely the ceiling for "full image + no border": these
+     banner assets vary a lot in native shape (some ~2.7:1 wide strips,
+     some closer to square/portrait), so height differs slide to slide.
+     Making it taller than this requires either cropping or padding â€”
+     both tried and rejected. max-height is just a safety net for an
+     unusually tall/portrait outlier image. */
+  .hero-slide-mobile-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+  .hero-slide.has-mobile-image > .container {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+  }
+  .hero-slide.has-mobile-image .hero-slide-overlay { z-index: 1; }
+  .hero-content { max-width: 100%; padding: 3.5rem 0 2.5rem; }
+  .hero-slide-bg { background-size: 100% 100%; background-position: center center; }
+  .hero-arrow { display: none; }
+  .hero-content h1 { font-size: 1.6rem; }
+  .hero-content p { font-size: .95rem; }
+  .hero-content .btn-group .btn { flex: 1 1 auto; text-align: center; }
+  .hero-controls { bottom: 1.1rem; gap: .6rem; }
+
+  /* Stats */
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0; }
+  .stat-item { padding: .85rem .5rem; }
+  .stat-number { font-size: 1.6rem; }
+  .stat-label { font-size: .68rem; margin-top: .25rem; }
+
+  /* Grids */
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .news-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .video-embed-wrap { width: 100%; }
+  .video-embed {
+    min-height: 0;
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 14px;
+  }
+
+  /* Sidebar layout */
+  .page-layout, .page-layout.sidebar-left { grid-template-columns: 1fr; }
+  .sidebar-col { order: 2; }
+  .main-col { order: 1; }
+
+  /* Footer */
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .6rem;
+    padding: 1.25rem 0 1rem;
+    align-items: stretch;
+  }
+  .footer-brand {
+    grid-column: 1 / -1;
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    padding: 0 0 1rem;
+    margin-bottom: .15rem;
+  }
+  .footer-brand-head { gap: .75rem; margin-bottom: .85rem; }
+  .footer-contact-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .6rem;
+    margin-top: 0;
+  }
+  .footer-column {
+    min-width: 0;
+    padding: .8rem .7rem;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 11px;
+    background: rgba(255,255,255,.035);
+  }
+  .footer-column:last-child { border-right: 1px solid rgba(255,255,255,.08); }
+  .footer-column:last-child:nth-child(even) { grid-column: 1 / -1; }
+  .footer-column:last-child:nth-child(even) .footer-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: .75rem;
+  }
+  .footer-title { margin-bottom: .55rem; padding-bottom: .35rem; font-size: .66rem; letter-spacing: .08em; }
+  .footer-title::after { width: 22px; }
+  .footer-links { margin-bottom: .65rem; }
+  .footer-links a { gap: .3rem; padding: .28rem 0; font-size: .74rem; line-height: 1.3; }
+  .footer-link-icon { width: 11px; height: 11px; }
+  .footer-bottom .container { grid-template-columns: 1fr; text-align: center; gap: .75rem; }
+  .footer-bottom-brand { justify-content: center; }
+  .footer-bottom-right { justify-content: center; }
+  .footer-social-strip { justify-content: center; gap: .65rem; padding: .85rem 0; flex-wrap: nowrap; }
+  .footer-social-label { font-size: .62rem; letter-spacing: .08em; }
+  .social-links { gap: .4rem; flex-wrap: nowrap; }
+  .social-link span { display: none; }
+  .social-link { width: 34px; height: 34px; padding: 0; justify-content: center; border-radius: 50%; }
+  .footer-bottom-links { display: flex; }
+  .why-liu-features { grid-template-columns: 1fr; }
+  .quicklinks-strip { padding: 2rem 0; }
+  .quicklink-item { flex: 1 1 calc(50% - 1rem); min-width: 0; }
+
+  /* Campus marquee */
+  .campus-marquee-section { padding: 3rem 0 2.5rem; }
+  .campus-marquee-intro { margin-bottom: 2rem; }
+  .campus-mq-card { width: 200px; }
+  .campus-mq-img  { height: 148px; }
+  .campus-track   { animation-duration: 22s; gap: .9rem; }
+  .campus-track-fade-left,
+  .campus-track-fade-right { width: 50px; }
+  .news-events-grid { grid-template-columns: 1fr; }
+
+  /* Card featured */
+  .card-featured { grid-template-columns: 1fr; }
+
+  /* Breadcrumb */
+  .breadcrumb { padding: .6rem 0; }
+
+  /* Page hero */
+  .page-hero { padding: 2.5rem 0 2rem; }
+
+  /* Tabs */
+  .tab-btn { padding: .7rem 1rem; font-size: .82rem; }
+
+  /* Forms */
+  .adm-form-row, .adm-form-row-3 { grid-template-columns: 1fr; }
+
+  /* Admin sidebar */
+  .admin-sidebar { width: 0; overflow: hidden; }
+  .admin-sidebar.mobile-open { width: var(--adm-sidebar-w); }
+  .admin-topbar { left: 0 !important; }
+  .admin-main { margin-left: 0 !important; }
+
+  .stat-cards { grid-template-columns: 1fr 1fr; }
+  .block-type-picker { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---- Small mobile: â‰¤ 480px ---- */
+/* Homepage only: keep the mobile experience completely static. */
+@media (max-width: 768px) {
+  body.home-page *,
+  body.home-page *::before,
+  body.home-page *::after {
+    animation: none !important;
+    transition-duration: 0s !important;
+    scroll-behavior: auto !important;
+  }
+
+  body.home-page.animations-ready .reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  body.home-page .hero-arrow,
+  body.home-page .hero-controls {
+    display: none !important;
+  }
+
+  body.home-page .campus-track-wrap {
+    overflow-x: auto;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body.home-page .campus-track {
+    transform: none !important;
+    will-change: auto;
+  }
+
+  body.home-page .campus-mq-card[aria-hidden="true"],
+  body.home-page .campus-track-fade-left,
+  body.home-page .campus-track-fade-right {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Squeeze the fixed header bar a bit more so the logo, Login circle,
+     and hamburger all still fit on the narrowest phones. */
+  .header-main .container { padding: 0 .75rem; gap: .3rem; }
+  .header-logo-text strong { font-size: .7rem; }
+  .header-login-btn { padding: .42rem; }
+  .navbar-toggle { padding: .35rem; }
+
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .stat-cards { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .hero-slide { min-height: 260px; }
+  .hero-content { padding: 2.5rem 0 2rem; }
+  .hero-content .badge { font-size: .68rem; padding: .2rem .6rem; }
+  .hero-content h1 { font-size: 1.3rem; line-height: 1.3; }
+  .hero-content p { font-size: .88rem; }
+  .hero-content .btn-group { flex-direction: column; }
+  .hero-dot { width: 8px; height: 8px; }
+  .btn-lg { width: 100%; justify-content: center; }
+  .page-header { flex-direction: column; align-items: flex-start; }
+  .back-to-top { bottom: 1rem; right: 1rem; }
+  .social-links { flex-wrap: wrap; }
+  .quicklink-item { flex-basis: 100%; }
+  .footer-brand { padding: 0 0 .85rem; border-radius: 0; }
+  .footer-column { padding: .7rem .55rem; border-radius: 10px; }
+  .footer-brand-head { align-items: flex-start; }
+  .footer-brand-mark { width: 42px; height: 42px; border-radius: 12px; }
+  .footer-brand-title { font-size: .86rem; }
+  .footer-brand-subtitle { font-size: .6rem; letter-spacing: .08em; }
+  .footer-contact-item { gap: .45rem; }
+  .footer-contact-icon { width: 28px; height: 28px; border-radius: 8px; }
+  .footer-contact-item .label { font-size: .61rem; letter-spacing: .04em; }
+  .footer-contact-item .value { font-size: .7rem; line-height: 1.3; }
+  .why-liu-section { padding: 4rem 0; }
+  .adm-table th, .adm-table td { padding: .6rem .65rem; font-size: .78rem; }
+}
+
+/* ---- Print ---- */
+@media print {
+  .top-utility-bar, .header-main, .main-navbar, .footer, .back-to-top,
+  .admin-sidebar, .admin-topbar, .page-actions { display: none !important; }
+  .admin-main { margin-left: 0 !important; padding-top: 0 !important; }
+  body { background: #fff; padding-top: 0 !important; }
+}
