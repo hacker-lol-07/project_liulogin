@@ -23,7 +23,7 @@ body {
     padding: 14px;
     margin-top: 20px;
     width: 100%;
-    max-width: 435px;
+    max-width: 400px;
     text-align: center;
     font-size: 17px;
     font-weight: bold;
@@ -38,10 +38,10 @@ body {
 .form-container {
     margin: 0 auto;
     width: 100%;
-    max-width: 435px;
+    max-width: 400px;
     border-radius: 0.85rem;
     background-color: rgba(17, 24, 39, 1);
-    padding: 2.1rem;
+    padding: 1.8rem;
     color: rgba(243, 244, 246, 1);
 }
 
